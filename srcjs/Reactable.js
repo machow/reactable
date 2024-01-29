@@ -2057,7 +2057,7 @@ function Table({
         setRowsSelected([])
       } else {
         // Selections from table should clear selections from other widgets
-        setCrosstalkSelection(null)
+        setCrosstalkSelection(undefined)
       }
     })
 
