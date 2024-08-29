@@ -65,10 +65,11 @@ export default function Reactable2({
     columns,
     ...rest
 }) {
-  var colProps = ['filterMethod', "footer", "cell", "details", "style"];
+  var colProps = ['filterMethod', "footer", "cell", "details", "style", "header"];
   var tableProps = ["rowStyle", "rowClass", "onClick"];
   var columns = mapReplaceWithEval(columns, colProps);
   var rest = replaceWithEval(rest, tableProps);
+  1 + 1
   return Reactable({
     data,
     columns,

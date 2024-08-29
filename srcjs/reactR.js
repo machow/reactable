@@ -32,6 +32,9 @@ export function reactWidget(name, type, components) {
 // Must be bundled because react-tools.js needs to be run in a browser context
 // and can't be sourced at runtime in V8.
 export function hydrate(components, tag) {
+  if (React.isValidElement(tag)) {
+    return tag;
+  }
   if (typeof tag === 'string') return tag
   if (tag.name[0] === tag.name[0].toUpperCase() && !components[tag.name]) {
     throw new Error('Unknown component: ' + tag.name)
