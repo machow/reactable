@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { hydrate } from 'reactR'
+import { hydrate } from './reactR'
 
 import WidgetContainer from './WidgetContainer'
 import { getAggregateFunction } from './aggregators'

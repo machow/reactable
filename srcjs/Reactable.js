@@ -10,7 +10,7 @@ import {
   useTable
 } from 'react-table'
 import PropTypes from 'prop-types'
-import { hydrate } from 'reactR'
+import { hydrate } from './reactR'
 
 import Pagination from './Pagination'
 import WidgetContainer from './WidgetContainer'
@@ -45,6 +45,26 @@ import {
 
 import './react-table.css'
 import './reactable.css'
+
+export function hydrate2(components, tag) {
+  console.log("tag")
+  console.log(tag)
+  if (React.isValidElement(tag)) {
+    console.log("skipping")
+    return tag
+  }
+
+  if (typeof tag === 'string') return tag
+  if (tag.name[0] === tag.name[0].toUpperCase() && !components[tag.name]) {
+    throw new Error('Unknown component: ' + tag.name)
+  }
+  const elem = components[tag.name] || tag.name
+  const args = [elem, tag.attribs]
+  for (let child of tag.children) {
+    args.push(hydrate2(components, child))
+  }
+  return React.createElement(...args)
+}
 
 const tableInstances = {}
 export function getInstance(tableId) {
@@ -1423,7 +1443,7 @@ function Table({
       if (html) {
         props.html = content
       }
-      props.children = hydrate({ Reactable, Fragment, WidgetContainer }, content)
+      props.children = hydrate2({ Reactable, Fragment, WidgetContainer }, content)
     }
     // Set key to force updates when expanding a different column or changing page
     return <RowDetails key={`${expandedCol.id}_${rowInfo.index}`} {...props} />
