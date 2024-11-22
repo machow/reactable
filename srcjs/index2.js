@@ -1,3 +1,6 @@
+import * as React from 'react';
+import {useModelState, createRender} from "@anywidget/react";
+
 import Reactable from './Reactable'
 import './react-table.css'
 import './reactable.css'
@@ -60,7 +63,8 @@ function mapReplaceWithEval(obj, field) {
 }
 
 
-export default function Reactable2({
+// export default function Reactable2({
+function Reactable2({
     data,
     columns,
     ...rest
@@ -69,7 +73,7 @@ export default function Reactable2({
   var tableProps = ["rowStyle", "rowClass", "onClick"];
   var columns = mapReplaceWithEval(columns, colProps);
   var rest = replaceWithEval(rest, tableProps);
-  1 + 1
+  console.log("YOU HERE WE GO")
   return Reactable({
     data,
     columns,
@@ -81,3 +85,19 @@ export default function Reactable2({
 Reactable2.propTypes = Reactable.propTypes
 Reactable2.defaultProps = Reactable.defaultProps
 //export default Reactable
+
+function Reactable3() {
+  let [data, setData] = useModelState("props")
+  let [columns, setColumns] = useModelState("columns")
+
+  console.log("Reactable3", data, columns)
+
+  //let obj =  Reactable2(data)
+  //console.log(obj)
+  
+  return <Reactable2 {...data} />
+}
+
+export default {
+  render: createRender(Reactable3)
+}
